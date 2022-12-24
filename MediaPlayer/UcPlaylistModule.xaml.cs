@@ -101,18 +101,23 @@ namespace MediaPlayer
             }
         }
 
-        private void playlistsListView_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            int selectedIndex = playlistsListView.SelectedIndex;
-            if (selectedIndex < 0)
-            {
-                return;
-            }
-            mainWindow.Previous = (UserControl)mainWindow.GbCurrentModule.Content;
-            UcMediasModule ucMediasModule = (UcMediasModule)mainWindow.userControls["UcMediasModule"];
-            ucMediasModule.Playlist = playlistViewModel.Playlists[selectedIndex];
-            mainWindow.GbCurrentModule.Content = ucMediasModule;
 
+
+        private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            var item = sender as ListViewItem;
+            if(item != null && item.IsSelected)
+            {
+                int selectedIndex = playlistsListView.SelectedIndex;
+                if (selectedIndex < 0)
+                {
+                    return;
+                }
+                mainWindow.Previous = (UserControl)mainWindow.GbCurrentModule.Content;
+                UcMediasModule ucMediasModule = (UcMediasModule)mainWindow.userControls["UcMediasModule"];
+                ucMediasModule.Playlist = playlistViewModel.Playlists[selectedIndex];
+                mainWindow.GbCurrentModule.Content = ucMediasModule;
+            }
         }
     }
 }

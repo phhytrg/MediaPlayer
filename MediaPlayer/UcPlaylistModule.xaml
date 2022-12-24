@@ -28,7 +28,7 @@
         </StackPanel>
         
         <ListView DockPanel.Dock="Bottom" Background="White"
-            x:Name="playlistsListView" SelectionChanged="playlistsListView_SelectionChanged"
+            x:Name="playlistsListView" 
             ScrollViewer.HorizontalScrollBarVisibility="Disabled" 
             ItemsSource="{Binding playlistViewModel.Playlists}">
             <ListView.ItemTemplate>
@@ -84,6 +84,7 @@
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="ContextMenu" Value="{StaticResource contextMenu}"/>
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemsPanel>
