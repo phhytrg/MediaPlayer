@@ -1,0 +1,108 @@
+﻿<UserControl x:Class="MediaPlayer.UcRecentlyPlayed"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:MediaPlayer"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800"
+             DataContext="{Binding RelativeSource={RelativeSource Self}}"
+             Loaded="UserControl_Loaded">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <local:IndexConverter x:Key="IndexConverter"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/ScrollbarStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <DockPanel Background="White" LastChildFill="True">
+        <Button x:Name="navigateUpButton" Content="{materialDesign:PackIcon Kind=ChevronLeft, Size=30}"
+                Height="30" Width="30" HorizontalAlignment="Left" Background="Transparent"
+                Click="navigateUpButton_Click" DockPanel.Dock="Top" BorderThickness="0"/>
+        <TextBlock Text="Recently played" Margin="30,0,0,0" FontSize="24" FontWeight="ExtraBold"
+                   DockPanel.Dock="Top"/>
+        <ListView Name="recentlyPlayedListView" Margin="10,10,10,10" ItemsSource="{Binding RecentlyPlayed}" 
+                  DockPanel.Dock="Bottom" AlternationCount="2">
+            <ListView.Style>
+                <Style TargetType="ListView">
+                    <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Disabled"/>
+                </Style>
+            </ListView.Style>
+            <ListView.Resources>
+                <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollbarStyle}"></Style>
+            </ListView.Resources>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="{x:Type ListViewItem}">
+                    <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                    <Style.Triggers>
+                        <Trigger Property="ItemsControl.AlternationIndex" Value="1">
+                            <Setter Property="Background" Value="#e1f2e1 "/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="20"/>
+                            <ColumnDefinition Width="50"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="60"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding RelativeSource={RelativeSource FindAncestor,
+                            AncestorType={x:Type ListViewItem}}, Converter={StaticResource IndexConverter}}" 
+                                   VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="0"/>
+                        <Image Grid.Column="1" Source="{Binding ArtCover}" Width="40" Height="40">
+                            <Image.Clip>
+                                <RectangleGeometry RadiusX="5" RadiusY="5" Rect="0,0,40,40"/>
+                            </Image.Clip>
+                        </Image>
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Margin="5,0,0,0">
+                                <Run Text="{Binding Title, Mode=OneWay}" d:Text="Green Light" />
+                                <LineBreak/>
+                                <Run Text="{Binding Artist, Mode=OneWay}" d:Text="Lorde"/>
+                            </TextBlock>
+                        </StackPanel>
+                        <TextBlock d:Text="Melodrama" Grid.Column="3"
+                                   VerticalAlignment="Center"  FontSize="13">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{Binding Album, Mode=OneWay}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Album, Mode=OneWay}" Value="">
+                                            <Setter Property="Text" Value="Unknown"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Grid.Column="4"
+                                   VerticalAlignment="Center" FontSize="13">
+                            <TextBlock.Style>
+                                <Style TargetType="TextBlock">
+                                    <Setter Property="Text" Value="{Binding Year, Mode=OneWay}"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding Year, Mode=OneWay}" Value="0">
+                                            <Setter Property="Text" Value=""/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </TextBlock.Style>
+                        </TextBlock>
+                        <TextBlock Text="{Binding Genre, Mode=OneWay}" d:Text="Pop" Grid.Column="5"
+                                   VerticalAlignment="Center"  FontSize="13"/>
+                        <TextBlock Text="{Binding Duration, Mode=OneWay}" Grid.Column="6"
+                                   VerticalAlignment="Center"  FontSize="13"/>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </DockPanel>
+</UserControl>

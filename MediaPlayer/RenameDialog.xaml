@@ -1,0 +1,59 @@
+﻿<Window x:Class="MediaPlayer.RenameDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaPlayer"
+        mc:Ignorable="d"
+        Title="CreatePlaylistDialog" Height="130" Width="300"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}"
+        WindowStyle="None">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Style/ButtonStyle.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+        <TextBox x:Name="playlistName" Width="250" Height="30"
+                 Margin="10" Text="{Binding CurrentName}" TextChanged="playlistName_TextChanged"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button x:Name="renamePlaylistButton" Width="130" Height="35"
+                Content="Rename" Margin="0,0,5,0"
+                FontSize="16" Click="renamePlaylistButton_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource RoundButtonTemplate}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="Background" Value="SeaGreen"/>
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding Text, ElementName=playlistName}" Value="">
+                                <Setter Property="IsEnabled" Value="False"/>
+                                <Setter Property="Background" Value="WhiteSmoke"/>
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+            </Button>
+            <Button x:Name="cancelRenamePlaylistButton" Width="130" Height="35"
+                Content="Cancel" Margin="5,0,0,0"
+                FontSize="16" Click="cancelRenamePlaylistButton_Click">
+                <Button.Style>
+                    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource RoundButtonTemplate}">
+                        <Setter Property="IsEnabled" Value="True"/>
+                        <Setter Property="Background" Value="Snow"/>
+                        <Setter Property="Foreground" Value="Black"/>
+                        <Style.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="LightGray"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </Button.Style>
+                <Button.Effect>
+                    <DropShadowEffect Color="Black" Direction="320" ShadowDepth="2" Opacity="0.1"/>
+                </Button.Effect>
+            </Button>
+        </StackPanel>
+    </StackPanel>
+</Window>

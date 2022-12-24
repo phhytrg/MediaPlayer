@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="images\icon.png" />
+    <None Remove="images\mp3.png" />
+    <None Remove="images\playlist.png" />
+    <None Remove="images\small_playlist.png" />
+    <None Remove="images\white.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.6.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
+    <PackageReference Include="PropertyChanged.Fody" Version="4.1.0" />
+    <PackageReference Include="System.Drawing.Common" Version="7.0.0" />
+    <PackageReference Include="TagLibSharp" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="images\icon.png" />
+    <Resource Include="images\mp3.png" />
+    <Resource Include="images\playlist.png" />
+    <Resource Include="images\small_playlist.png" />
+    <Resource Include="images\white.png" />
+  </ItemGroup>
+
+</Project>

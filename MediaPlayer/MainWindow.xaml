@@ -1,0 +1,24 @@
+﻿<Window x:Class="MediaPlayer.MainWindow"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaPlayer"
+        xmlns:ap="clr-namespace:MediaPlayer"
+        xmlns:data="clr-namespace:MediaPlayer.data"
+        mc:Ignorable="d"
+        Title="Media Player - Phan Huy Truong - 20120231" Height="750" Width="1200"
+        Icon="images/icon.png"
+        WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True"
+        Loaded="Window_Loaded">
+
+    <DockPanel LastChildFill="True">
+        <GroupBox DockPanel.Dock="Bottom" Name="MediaService"/>
+
+        <GroupBox Name="GbCurrentModule" HorizontalAlignment="Stretch">
+
+        </GroupBox>
+
+    </DockPanel>
+</Window>
