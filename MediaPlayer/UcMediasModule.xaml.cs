@@ -136,13 +136,6 @@ namespace MediaPlayer
             }
 
             this.MusicPlayerViewModel.MediaIndex = selectedIndex;
-            //this.MusicPlayerViewModel.CurrentMedia = Playlist.Medias[selectedIndex];
-            //this.MusicPlayerViewModel.MediaElement.MediaOpened += MediaElement_MediaOpened;
-            //this.MusicPlayerViewModel.MediasQueue.Clear();
-            //this.Playlist.Medias.Skip(selectedIndex).ToList().ForEach(item =>
-            //{
-            //    this.MusicPlayerViewModel.MediasQueue.Add(item);
-            //});
             this.MusicPlayerViewModel.NotifyOnMediaElementChanged();
         }
         private void removeMenuItem_Click(object sender, RoutedEventArgs e)

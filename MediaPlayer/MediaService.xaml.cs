@@ -361,10 +361,6 @@ namespace MediaPlayer
             this.MusicPlayerViewModel.RecentlyPlayedOfShufflingMode.RemoveAt(0);
         }
 
-        private void recentlyPlayButton_Click(object sender, RoutedEventArgs e)
-        {
-            mainWindow.NavigateRecentlyPlayedList();
-        }
 
         public void SkipNext3Secs()
         {
@@ -439,6 +435,15 @@ namespace MediaPlayer
                     this.MusicPlayerViewModel.MediaElement.Volume = 0.5;
                 }
             }
+        }
+
+        private void currentPlaylist_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.NavigateCurrentPlaylist();
+        }
+        private void recentlyPlayButton_Click(object sender, RoutedEventArgs e)
+        {
+            mainWindow.NavigateRecentlyPlayedList();
         }
     }
 

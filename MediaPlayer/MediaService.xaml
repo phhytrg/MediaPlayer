@@ -199,6 +199,18 @@
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right"
                             Margin="10">
+                
+                <Button x:Name="currentPlaylist" Width="25" Height="25" Click="currentPlaylist_Click">
+                    <Button.Style>
+                        <Style TargetType="Button">
+                            <Setter Property="BorderThickness" Value="0"/>
+                            <Setter Property="Content" Value="{materialDesign:PackIcon Kind=PlaylistPlay,Size=20}"/>
+                            <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="ToolTip" Value="Current Playlist"/>
+                        </Style>
+                    </Button.Style>
+                </Button>
+                    
                 <Button x:Name="recentlyPlayButton" Width="25" Height="25" Click="recentlyPlayButton_Click">
                     <Button.Style>
                         <Style TargetType="Button">

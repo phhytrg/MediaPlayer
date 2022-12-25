@@ -81,7 +81,8 @@ namespace MediaPlayer
             userControls.Add("UcPlaylistModule", new UcPlaylistModule());
             userControls.Add("UcMediasModule", new UcMediasModule());
             userControls.Add("MediaService", new MediaService());
-            userControls.Add("UcRecentlyPlayed", new UcRecentlyPlayed());
+            userControls.Add("UcRecentlyPlayed", new UcRecentlyPlayed(this.MusicPlayerViewModel.RecentlyPlayed));
+            userControls.Add("UcCurrentPlaylist", new UcCurrentPlaylist(this.MusicPlayerViewModel.CurrentPlaylist));
             GbCurrentModule.Content = userControls["UcPlaylistModule"];
             MediaService.Content = new MediaService();
         }
@@ -90,6 +91,12 @@ namespace MediaPlayer
             Previous = (UserControl?)GbCurrentModule.Content;
             GbCurrentModule.Content = userControls["UcRecentlyPlayed"];
         }
+        public void NavigateCurrentPlaylist()
+        {
+            Previous = (UserControl?)GbCurrentModule.Content;
+            GbCurrentModule.Content = userControls["UcCurrentPlaylist"];
+        }
+
         public void NavigateUp()
         {
             GbCurrentModule.Content = Previous;
