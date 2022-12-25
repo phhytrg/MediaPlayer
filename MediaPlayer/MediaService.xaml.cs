@@ -419,6 +419,27 @@ namespace MediaPlayer
                 this.linearSkipPreviousButton_Click(new object(), new RoutedEventArgs());
             }
         }
+
+        private double recentlyVolume = 0;
+        private void volumeButton_Click(object sender, RoutedEventArgs e)
+        {
+            if(this.MusicPlayerViewModel.MediaElement.Volume > 0)
+            {
+                recentlyVolume = this.MusicPlayerViewModel.MediaElement.Volume;
+                this.MusicPlayerViewModel.MediaElement.Volume = 0;
+            }
+            else
+            {
+                if(recentlyVolume != 0)
+                {
+                    this.MusicPlayerViewModel.MediaElement.Volume = recentlyVolume;
+                }
+                else
+                {
+                    this.MusicPlayerViewModel.MediaElement.Volume = 0.5;
+                }
+            }
+        }
     }
 
 

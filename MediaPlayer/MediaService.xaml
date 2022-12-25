@@ -108,9 +108,11 @@
                             <Setter Property="BorderThickness" Value="0" />
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="Content" Value="{materialDesign:PackIcon Kind=Shuffle,Size=25}"/>
+                            <Setter Property="ToolTip" Value="Enable Shuffle"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=MusicPlayerViewModel.IsShuffling}" Value="True">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Kind=ShuffleDisabled, Size=25}"/>
+                                    <Setter Property="ToolTip" Value="Disable Shuffle"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -122,6 +124,7 @@
                             <Setter Property="Content" Value="{materialDesign:PackIcon Kind=SkipPrevious, Size=30}"/>
                             <Setter Property="BorderThickness" Value="0" />
                             <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="ToolTip" Value="Skip Previous"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding MusicPlayerViewModel.CurrentMedia}" Value="{x:Null}">
                                     <Setter Property="IsEnabled" Value="False"/>
@@ -139,14 +142,18 @@
                             <Setter Property="BorderBrush" Value="SeaGreen"/>
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="Content" Value="{materialDesign:PackIcon Play, Size=30}"/>
+                            <Setter Property="ToolTip" Value="Play"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding CurrentState, Converter={StaticResource MediaStateConverter}}"
                                              Value="Play">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Kind=Pause, Size=30}"/>
+                                    <Setter Property="ToolTip" Value="Pause"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding MusicPlayerViewModel.CurrentMedia}" Value="{x:Null}">
                                     <Setter Property="IsEnabled" Value="False"/>
                                 </DataTrigger>
+                                <MultiTrigger>
+                                </MultiTrigger>
                             </Style.Triggers>
                         </Style>
                     </Button.Style>
@@ -158,6 +165,7 @@
                             <Setter Property="Content" Value="{materialDesign:PackIcon Kind=SkipNext, Size=30}"/>
                             <Setter Property="BorderThickness" Value="0" />
                             <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="ToolTip" Value="Skip Next"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding MusicPlayerViewModel.CurrentMedia}" Value="{x:Null}">
                                     <Setter Property="IsEnabled" Value="False"/>
@@ -173,12 +181,15 @@
                             <Setter Property="BorderThickness" Value="0" />
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="Content" Value="{materialDesign:PackIcon Kind=RepeatOff,Size=25}"/>
+                            <Setter Property="ToolTip" Value="Enable Repeat"/>
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding Path=MusicPlayerViewModel.ReplayingFlag}" Value="{x:Static local:Constants.REPLAY_PLAYLIST}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Kind=Repeat, Size=25}"/>
+                                    <Setter Property="ToolTip" Value="Enable Repeat One"/>
                                 </DataTrigger>
                                 <DataTrigger Binding="{Binding Path=MusicPlayerViewModel.ReplayingFlag}" Value="{x:Static local:Constants.REPLAY_SINGLE}">
                                     <Setter Property="Content" Value="{materialDesign:PackIcon Kind=RepeatOne, Size=25}"/>
+                                    <Setter Property="ToolTip" Value="Diable Repeat"/>
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
@@ -194,15 +205,23 @@
                             <Setter Property="BorderThickness" Value="0"/>
                             <Setter Property="Content" Value="{materialDesign:PackIcon Kind=PlaylistMusicOutline,Size=20}"/>
                             <Setter Property="Background" Value="Transparent"/>
+                            <Setter Property="ToolTip" Value="Recently Played"/>
                         </Style>
                     </Button.Style>
                 </Button>
-                <Button Width="25" Height="25" Content="{materialDesign:PackIcon Kind=VolumeHigh}">
+                <Button Width="25" Height="25" Name="volumeButton" Click="volumeButton_Click">
                     <Button.Style>
                         <Style TargetType="Button">
+                            <Setter Property="Content" Value="{materialDesign:PackIcon Kind=VolumeHigh}"/>
                             <Setter Property="Background" Value="Transparent"/>
                             <Setter Property="BorderBrush" Value="Transparent"/>
                             <Setter Property="BorderThickness" Value="0"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding MusicPlayerViewModel.MediaElement.Volume, Mode=OneWay}"
+                                             Value="0">
+                                    <Setter Property="Content" Value="{materialDesign:PackIcon Kind=VolumeOff}"/>
+                                </DataTrigger>
+                            </Style.Triggers>
                         </Style>
                     </Button.Style>
                 </Button>
