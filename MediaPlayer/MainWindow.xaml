@@ -11,7 +11,7 @@
         Title="Media Player - Phan Huy Truong - 20120231" Height="750" Width="1200"
         Icon="images/icon.png"
         WindowStartupLocation="CenterScreen" SnapsToDevicePixels="True"
-        Loaded="Window_Loaded">
+        Loaded="Window_Loaded" >
 
     <DockPanel LastChildFill="True">
         <GroupBox DockPanel.Dock="Bottom" Name="MediaService"/>

@@ -85,6 +85,9 @@
                 <Style TargetType="ListViewItem">
                     <Setter Property="ContextMenu" Value="{StaticResource contextMenu}"/>
                     <EventSetter Event="PreviewMouseLeftButtonDown" Handler="ListViewItem_PreviewMouseLeftButtonDown"/>
+                    <EventSetter Event="Drop" Handler="ListViewItem_Drop"/>
+                    <EventSetter Event="DragOver" Handler="ListViewItem_DragOver"/>
+                    <Setter Property="AllowDrop" Value="True"/>
                 </Style>
             </ListView.ItemContainerStyle>
             <ListView.ItemsPanel>

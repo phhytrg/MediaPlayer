@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TagLib.Flac;
+using Path = System.IO.Path;
 
 namespace MediaPlayer
 {
@@ -51,14 +52,18 @@ namespace MediaPlayer
             if (Playlist != this.MusicPlayerViewModel.CurrentPlaylist)
             {
                 this.MusicPlayerViewModel.CurrentPlaylist = Playlist;
+                this.MusicPlayerViewModel.NotifyOnPlaylistChanged();
             }
-            this.MusicPlayerViewModel.NotifyOnPlayButtonChanged();
+            else
+            {
+                this.MusicPlayerViewModel.NotifyOnPlayButtonChanged();
+            }
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             var screen = new OpenFileDialog();
-            screen.Filter = "All Supported File Types (*.mp3,*.wav,*.mpeg,*.wmv,*.avi)|*.mp3;*.wav;*.mpeg;*.wmv;*.avi|All files (*.*)|*.*";
+            screen.Filter = "All Supported File Types (*.mp3,*.wav,*.mpeg,*.wmv,*.avi,*.m4a,*.flac)|*.mp3;*.wav;*.mpeg;*.wmv;*.avi;*.m4a;*.flac|All files (*.*)|*.*";
             screen.Multiselect = true;
 
             if (screen.ShowDialog() == true)
@@ -87,7 +92,7 @@ namespace MediaPlayer
 
             if (dialog.ShowDialog() != true)
             {
-                this.playlistName.Text = playlistName;
+                Playlist.Name = playlistName;
                 return;
             }
             else
@@ -98,7 +103,7 @@ namespace MediaPlayer
 
         private void screen_PlaylistNameChanged(string playlistName)
         {
-            this.playlistName.Text = playlistName;
+            Playlist.Name = playlistName;
         }
 
         private void deleteButton_Click(object sender, RoutedEventArgs e)
@@ -154,6 +159,33 @@ namespace MediaPlayer
             }
 
             this.Playlist.Medias.RemoveAt(indexSelected);
+        }
+
+        private void tracksListView_Drop(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                if (files.Length <= 0)
+                {
+                    return;
+                }
+
+                List<string> supportTypes = new List<string>() { ".mp3", ".wav", ".mpeg", ".wmv", ".avi", ".m4a", ".flac" };
+
+                foreach (string file in files)
+                {
+                    if (supportTypes.Contains(Path.GetExtension(file)))
+                    {
+                        Playlist.Medias.Add(new Media(file));
+                        if (Playlist.Medias.Count <= 4)
+                        {
+                            Playlist.NotifyOnPlaylistChanged();
+                        }
+                    }
+                }
+            }
         }
     }
 }

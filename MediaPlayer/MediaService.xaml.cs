@@ -75,6 +75,18 @@ namespace MediaPlayer
                 _parent.PlaySound();
             }
 
+            public void OnOtherPlaylistPlay()
+            {
+                if (_parent.CurrentState == MediaState.Play)
+                {
+                    _parent.StopSound();
+                }
+
+                _parent.MusicPlayerViewModel.CurrentMedia = _parent.MusicPlayerViewModel.CurrentPlaylist.Medias[_parent.MusicPlayerViewModel.MediaIndex];
+
+                _parent.PlaySound();
+            }
+
             public void OnPlayButtonUpdate()
             {
                 if (_parent.CurrentState == MediaState.Play)
@@ -325,12 +337,32 @@ namespace MediaPlayer
         }
         private void linearSkipNextButton_Click(object sender, RoutedEventArgs e)
         {
-            if (this.MusicPlayerViewModel.MediaIndex + 1 >= this.MusicPlayerViewModel.CurrentPlaylist.Medias.Count)
+            if(MusicPlayerViewModel.ReplayingFlag == Constants.NON_REPLAYING)
             {
-                return;
+                if (this.MusicPlayerViewModel.MediaIndex + 1 >= this.MusicPlayerViewModel.CurrentPlaylist.Medias.Count)
+                {
+                    return;
+                }
+                else
+                {
+                    this.MusicPlayerViewModel.CurrentMedia = this.MusicPlayerViewModel.CurrentPlaylist.Medias[++this.MusicPlayerViewModel.MediaIndex];
+                }
+            }
+            else if(MusicPlayerViewModel.ReplayingFlag == Constants.REPLAY_PLAYLIST)
+            {
+                if (this.MusicPlayerViewModel.MediaIndex + 1 >= this.MusicPlayerViewModel.CurrentPlaylist.Medias.Count)
+                {
+                    this.MusicPlayerViewModel.MediaIndex = 0;
+                }
+
+                this.MusicPlayerViewModel.CurrentMedia = this.MusicPlayerViewModel.CurrentPlaylist.Medias[++this.MusicPlayerViewModel.MediaIndex];
+
+            }
+            else if(MusicPlayerViewModel.ReplayingFlag == Constants.REPLAY_SINGLE)
+            {
+                this.MusicPlayerViewModel.MediaElement.Position = new TimeSpan(0);
             }
 
-            this.MusicPlayerViewModel.CurrentMedia = this.MusicPlayerViewModel.CurrentPlaylist.Medias[++this.MusicPlayerViewModel.MediaIndex];
         }
         private void shufflingSkipNextButton_Click(object sender, RoutedEventArgs e)
         {

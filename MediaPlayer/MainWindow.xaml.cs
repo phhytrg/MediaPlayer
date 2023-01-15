@@ -23,7 +23,7 @@ namespace MediaPlayer
         {
             InitializeComponent();
 
-            HotkeysManager.SetupSystemHook();
+                                                                    
             GlobalHotkey playStopHotkey = new GlobalHotkey(ModifierKeys.None, Key.Space,
                 () => this.MusicPlayerViewModel!.NotifyOnPlayButtonChanged(),
                 true
@@ -102,5 +102,14 @@ namespace MediaPlayer
             GbCurrentModule.Content = Previous;
         }
 
+        private void Window_LostFocus(object sender, RoutedEventArgs e)
+        {
+            HotkeysManager.ShutdownSystemHook();
+        }
+
+        private void Window_GotFocus(object sender, RoutedEventArgs e)
+        {
+            HotkeysManager.SetupSystemHook();
+        }
     }
 }

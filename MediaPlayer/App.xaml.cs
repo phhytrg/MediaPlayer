@@ -1,4 +1,5 @@
 ﻿using MediaPlayer.data;
+using MediaPlayer.Keys;
 using Newtonsoft.Json;
 using System;
 using System.Windows;
@@ -73,6 +74,15 @@ namespace MediaPlayer
             File.WriteAllText(_baseDomain + _slash + "media_element.json", json);
         }
 
+        private void Application_Activated(object sender, EventArgs e)
+        {
+            HotkeysManager.SetupSystemHook();
+        }
+
+        private void Application_Deactivated(object sender, EventArgs e)
+        {
+            HotkeysManager.ShutdownSystemHook();
+        }
     }
 
     public class MediaElementSave

@@ -14,11 +14,13 @@ namespace MediaPlayer.data
         void Detach(IObserver observer);
         void NotifyOnMediaElementChanged();
         void NotifyOnPlayButtonChanged();
+        void NotifyOnPlaylistChanged();
     }
     public interface IObserver
     {
         void OnDoubleClickedMediaListener();
         void OnPlayButtonUpdate();
+        void OnOtherPlaylistPlay();
     }
 
     public class MusicPlayerViewModel :INotifyPropertyChanged, ISubject
@@ -79,6 +81,14 @@ namespace MediaPlayer.data
             _observers.ForEach(o =>
             {
                 o.OnPlayButtonUpdate();
+            });
+        }
+
+        public void NotifyOnPlaylistChanged()
+        {
+            _observers.ForEach(o =>
+            {
+                o.OnOtherPlaylistPlay();
             });
         }
     }

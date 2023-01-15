@@ -148,11 +148,12 @@
 
             <ListView x:Name="tracksListView"
                   ItemsSource="{Binding Playlist.Medias}" AlternationCount="2"
-                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent">
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled" Background="Transparent"
+                  Drop="tracksListView_Drop" AllowDrop="True">
                 <ListView.Resources>
                     <Style TargetType="ScrollBar" BasedOn="{StaticResource ScrollbarStyle}"></Style>
                     <ContextMenu x:Key="mediasContextMenu">
-                        <MenuItem Header="Remove" Name="removeMenuItem" Click="removeMenuItem_Click"/>
+                        <MenuItem Header="Remove" Name="removeMenuItem" Click="removeMenuItem_Click" Icon="{materialDesign:PackIcon Kind=Remove}"/>
                     </ContextMenu>
                 </ListView.Resources>
                 <ListView.ItemContainerStyle>

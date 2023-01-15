@@ -20,6 +20,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using TagLib.Id3v2;
+using Path = System.IO.Path;
 
 namespace MediaPlayer
 {
@@ -53,7 +54,8 @@ namespace MediaPlayer
             int selectedIndex = playlistsListView.SelectedIndex;
 
             var screen = new OpenFileDialog();
-            screen.Filter = "All Supported File Types (*.mp3,*.wav,*.mpeg,*.wmv,*.avi)|*.mp3;*.wav;*.mpeg;*.wmv;*.avi|All files (*.*)|*.*";
+            screen.Filter = "All Supported File Types (*.mp3,*.wav,*.mpeg,*.wmv,*.avi,*.m4a,*.flac)" +
+                "|*.mp3;*.wav;*.mpeg;*.wmv;*.avi;.m4a,*.flac|All files (*.*)|*.*";
             screen.Multiselect = true;
 
             if (screen.ShowDialog() == true)
@@ -101,8 +103,6 @@ namespace MediaPlayer
             }
         }
 
-
-
         private void ListViewItem_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             var item = sender as ListViewItem;
@@ -119,5 +119,42 @@ namespace MediaPlayer
                 mainWindow.GbCurrentModule.Content = ucMediasModule;
             }
         }
+
+        #region Drag and drop items
+        private void ListViewItem_Drop(object sender, DragEventArgs e)
+        {
+            var item = ((ListViewItem)sender);
+
+            var playlist = (Playlist)item.DataContext;
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            {
+                string[] files = (string[])e.Data.GetData(DataFormats.FileDrop);
+
+                if (files.Length <= 0)
+                {
+                    return;
+                }
+
+                List<string> supportTypes = new List<string>() { ".mp3",".wav", ".mpeg", ".wmv", ".avi", ".m4a", ".flac" };
+
+                foreach (string file in files)
+                {
+                    if (supportTypes.Contains( Path.GetExtension(file)))
+                    {
+                        playlist.Medias.Add(new Media(file));
+                        if (playlist.Medias.Count <= 4)
+                        {
+                            playlist.NotifyOnPlaylistChanged();
+                        }
+                    }
+                }
+            }
+        }
+        private void ListViewItem_DragOver(object sender, DragEventArgs e)
+        {
+            e.Effects = DragDropEffects.Copy;
+        }
+        #endregion
+
     }
 }
