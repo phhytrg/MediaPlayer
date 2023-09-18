@@ -39,7 +39,6 @@ PM> NuGet\Install-Package PropertyChanged.Fody
 11. Create a cover for playlist using combination of the first 4 media's cover
 12. Show media's information (Title, Artist, Album, Year, Genre, Duration)
 
-## Expected Grade: 10
 ## Video demo link: 
 https://youtu.be/KqB9fxkhG98
 
